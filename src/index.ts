@@ -1,3 +1,6 @@
+// Import CSS
+import "./global.css";
+
 // Export components from individual directories
 export * from "./components/accordion";
 export * from "./components/alert";

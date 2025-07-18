@@ -22,6 +22,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/ui.es.js",
       "require": "./dist/ui.cjs.js"
+    },
+    "./styles.css": {
+      "import": "./dist/global.css",
+      "default": "./dist/global.css"
     }
   },
   "files": [
@@ -29,7 +33,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.build.json && vite build",
+    "build": "tsc -p tsconfig.build.json && vite build && npm run build:css",
+    "build:css": "tailwindcss -i ./src/global.css -o ./dist/global.css",
     "lint": "eslint .",
     "preview": "vite preview"
   },

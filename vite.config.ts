@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import tailwindcss from "@tailwindcss/vite";
 
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -36,6 +37,8 @@ export default defineConfig({
         preserveModules: false,
       },
     },
+    // Ensure CSS is extracted as a separate file
+    cssCodeSplit: false,
   },
   resolve: {
     alias: {

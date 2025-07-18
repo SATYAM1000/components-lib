@@ -1,4 +1,4 @@
-# Usage Example: Using @satyamx55/components-lib in a New Project
+# Usage Example: Using @satyamx55/react-ui in a New Project
 
 This guide shows how to integrate and use your published component library in a new React project.
 
@@ -20,7 +20,7 @@ npm install
 ## Step 2: Install the Component Library
 
 ```bash
-npm install @satyamx55/components-lib
+npm install @satyamx55/react-ui
 ```
 
 ## Step 3: Install and Configure Tailwind CSS
@@ -37,26 +37,78 @@ Update your `tailwind.config.js`:
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@satyamx55/components-lib/dist/**/*.js"
+    "./node_modules/@satyamx55/react-ui/dist/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+    },
   },
   plugins: [],
 }
 ```
 
-## Step 4: Add Tailwind CSS to Your Styles
+## Step 4: Import the Component Library CSS
+
+**⚠️ IMPORTANT**: You must import the CSS file for the components to work properly.
+
+In your `src/main.tsx` (Vite) or `src/index.tsx` (Create React App):
+
+```tsx
+import '@satyamx55/react-ui/styles.css';
+```
+
+## Step 5: Add Tailwind CSS to Your Styles
 
 In your `src/index.css` or `src/App.css`:
 
 ```css
+@import '@satyamx55/react-ui/styles.css';
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 ```
 
-## Step 5: Use the Components
+## Step 6: Use the Components
 
 ### Basic Example (src/App.tsx)
 
@@ -83,7 +135,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@satyamx55/components-lib';
+} from '@satyamx55/react-ui';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -98,7 +150,7 @@ function App() {
             Component Library Demo
           </h1>
           <p className="text-gray-600">
-            Showcasing components from @satyamx55/components-lib
+            Showcasing components from @satyamx55/react-ui
           </p>
         </div>
 
@@ -258,7 +310,7 @@ function App() {
 export default App;
 ```
 
-## Step 6: Run Your Application
+## Step 7: Run Your Application
 
 ```bash
 npm start
@@ -281,7 +333,7 @@ You can customize components by passing additional classes:
 ### Using the cn Utility
 
 ```tsx
-import { cn } from '@satyamx55/components-lib';
+import { cn } from '@satyamx55/react-ui';
 
 const MyComponent = ({ className, variant = 'default' }) => (
   <div 
@@ -301,7 +353,7 @@ const MyComponent = ({ className, variant = 'default' }) => (
 All components are fully typed:
 
 ```tsx
-import { ButtonProps } from '@satyamx55/components-lib';
+import { ButtonProps } from '@satyamx55/react-ui';
 
 const CustomButton: React.FC<ButtonProps> = ({ children, ...props }) => (
   <Button {...props}>
@@ -319,6 +371,6 @@ const CustomButton: React.FC<ButtonProps> = ({ children, ...props }) => (
 
 ## Package Information
 
-- **Package Name**: `@satyamx55/components-lib`
-- **Version**: 1.0.0
-- **Registry**: https://www.npmjs.com/package/@satyamx55/components-lib 
+- **Package Name**: `@satyamx55/react-ui`
+- **Version**: 1.1.2
+- **Registry**: https://www.npmjs.com/package/@satyamx55/react-ui 

@@ -1,11 +1,11 @@
-# @satyamx55/components-lib
+# @satyamx55/react-ui
 
 A comprehensive React component library built with Tailwind CSS and Radix UI primitives.
 
 ## Installation
 
 ```bash
-npm install @satyamx55/components-lib
+npm install @satyamx55/react-ui
 ```
 
 ## Setup
@@ -15,35 +15,124 @@ npm install @satyamx55/components-lib
 Your project needs these peer dependencies:
 
 ```bash
-npm install react react-dom
+npm install react react-dom tailwindcss
 ```
 
-### 2. Configure Tailwind CSS
+### 2. Import CSS Styles
 
-Add this to your `tailwind.config.js`:
+**⚠️ IMPORTANT: You MUST import the CSS file for components to work properly.**
+
+Choose one of these methods:
+
+**Option A: Import in your main entry file (Recommended)**
+```javascript
+// src/main.tsx or src/index.tsx
+import '@satyamx55/react-ui/styles.css';
+```
+
+**Option B: Import in your main CSS file**
+```css
+/* src/index.css or src/App.css */
+@import '@satyamx55/react-ui/styles.css';
+```
+
+### 3. Configure Tailwind CSS
+
+Create or update your `tailwind.config.js`:
 
 ```javascript
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@satyamx55/components-lib/dist/**/*.js"
+    "./node_modules/@satyamx55/react-ui/dist/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+    },
   },
   plugins: [],
 }
 ```
 
-### 3. Add Global Styles
+### 4. Add Base Styles (Optional but Recommended)
 
-Import the required CSS in your main CSS file or `index.css`:
+Add these base styles to your main CSS file:
 
 ```css
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+/* src/index.css or src/App.css */
+@import '@satyamx55/react-ui/styles.css';
+
+/* Your custom styles can go here */
+```
+
+### 5. Dark Mode Support (Optional)
+
+If you want dark mode support, add the `dark` class to your HTML:
+
+```html
+<html class="dark">
+<!-- or -->
+<html class="light">
+```
+
+Or use a theme provider like `next-themes`:
+
+```bash
+npm install next-themes
+```
+
+```jsx
+// App.jsx
+import { ThemeProvider } from 'next-themes'
+
+function App() {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      {/* Your app content */}
+    </ThemeProvider>
+  )
+}
 ```
 
 ## Usage
@@ -52,7 +141,7 @@ Import the required CSS in your main CSS file or `index.css`:
 
 ```tsx
 import React from 'react';
-import { Button, Card, CardContent, CardHeader, CardTitle } from '@satyamx55/components-lib';
+import { Button, Card, CardContent, CardHeader, CardTitle } from '@satyamx55/react-ui';
 
 function App() {
   return (
@@ -75,7 +164,39 @@ function App() {
 export default App;
 ```
 
-### Available Components
+## Troubleshooting
+
+### Styles Not Applied?
+
+1. **Check CSS Import**: Make sure you've imported `@satyamx55/react-ui/styles.css` in your main entry file.
+
+2. **Tailwind Content Configuration**: Ensure your `tailwind.config.js` includes the library path:
+   ```javascript
+   content: [
+     "./src/**/*.{js,ts,jsx,tsx}",
+     "./node_modules/@satyamx55/react-ui/dist/**/*.js"
+   ]
+   ```
+
+3. **CSS Variables**: The library uses CSS variables. Make sure you're not overriding them accidentally.
+
+4. **Build Process**: If using Vite, make sure your build process includes CSS processing.
+
+### Common Issues
+
+**Components appear unstyled:**
+- Import the CSS file: `import '@satyamx55/react-ui/styles.css';`
+- Check that Tailwind is configured correctly
+
+**Dark mode not working:**
+- Add `class="dark"` to your HTML element
+- Or use a theme provider
+
+**TypeScript errors:**
+- Make sure you have `@types/react` and `@types/react-dom` installed
+- Check that your TypeScript version is compatible
+
+## Available Components
 
 #### Form Components
 - `Button` - Customizable button with variants
@@ -138,16 +259,16 @@ export default App;
 The library exports a `cn` utility function for merging Tailwind classes:
 
 ```tsx
-import { cn } from '@satyamx55/components-lib';
+import { cn } from '@satyamx55/react-ui';
 
 const MyComponent = ({ className, ...props }) => (
   <div className={cn("default-classes", className)} {...props} />
 );
 ```
 
-### Theming
+### Custom Theming
 
-Components are built with CSS variables for easy theming. You can customize colors by setting CSS variables in your global styles:
+You can customize the theme by overriding CSS variables:
 
 ```css
 :root {
@@ -156,6 +277,14 @@ Components are built with CSS variables for easy theming. You can customize colo
   --primary: 222.2 47.4% 11.2%;
   --primary-foreground: 210 40% 98%;
   /* Add more theme variables as needed */
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  /* Add more dark theme variables */
 }
 ```
 

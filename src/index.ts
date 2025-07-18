@@ -1,4 +1,4 @@
-// Import CSS
+// Import CSS for bundling
 import "./global.css";
 
 // Export components from individual directories

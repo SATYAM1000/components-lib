@@ -1,6 +1,6 @@
 {
-  "name": "ui-components",
-  "version": "1.1.1",
+  "name": "@satyamx55/react-ui",
+  "version": "1.1.2",
   "description": "A comprehensive React component library built with Tailwind CSS and Radix UI",
   "keywords": [
     "react",
